@@ -32,8 +32,13 @@ int	main(void)
 								&img.endian);
 	player.x = 4.0;
 	player.y = 4.0;
-	player.dx = 1.0;
-	player.dy = -0.2;
+
+	// Init l'angle a 0
+	player.pa = -PI/2;
+
+	player.pdx = cos(player.pa);
+	player.pdy = sin(player.pa);
+
 	game.mlx = mlx;
 	game.win = mlx_win;
 	game.player = &player;

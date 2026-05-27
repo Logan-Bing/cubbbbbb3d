@@ -18,20 +18,41 @@ int	handle_keypress(int keycode, t_game *game)
 {
 	t_player *player = game->player;
 
+
 	if (keycode == KEY_ESC)
 		handle_close(game);
 	else if (keycode == KEY_UP)
-			player->y -= 0.2;
+	{
+		player->y += player->pdy * 0.2;
+		player->x += player->pdx * 0.2;
+		printf("x: %f\n", player->pdx);
+		printf("y: %f\n", player->pdy);
+	}
 	else if (keycode == KEY_DOWN)
-			player->y += 0.2;
-	else if (keycode == KEY_LEFT)
-			player->x -= 0.2;
-	else if (keycode == KEY_RIGHT)
-			player->x += 0.2;
-	else if (keycode == A)
-			player->dx -= 0.2;
-	else if (keycode == D)
-			player->dx += 0.2;
+	{
+		player->y -= player->pdy * 0.2;
+		player->x -= player->pdx * 0.2;
+		printf("x: %f\n", player->pdx);
+		printf("y: %f\n", player->pdy);
+	}
+
+	if (keycode == KEY_LEFT)
+	{ 
+		player->pa -= 0.1; 
+		if(player->pa < 0)
+			player->pa += 2*PI;
+		player->pdx = cos(player->pa); 
+		player->pdy = sin(player->pa);
+	}
+
+	if (keycode == KEY_RIGHT)
+	{ 
+		player->pa += 0.1; 
+		if(player->pa > 2*PI)
+			player->pa = 0;
+		player->pdx = cos(player->pa); 
+		player->pdy = sin(player->pa);
+	}
 
 	draw_game(game);
 	return (0);

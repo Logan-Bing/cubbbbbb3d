@@ -3,6 +3,7 @@
 
 # include <stdlib.h>
 # include <stdio.h>
+# include <math.h>
 # include "minilibx-linux/mlx.h"
 
 # define KEY_ESC		65307
@@ -17,6 +18,8 @@
 
 # define WIN_W			512
 # define WIN_H			512
+
+#define PI 3.1415926535
 
 # define BLACK			0x000000
 # define WHITE			0xFFFFFF
@@ -43,12 +46,16 @@ typedef struct s_data
 
 typedef struct s_player
 {
-	// position
+	// Position
 	double	x;
 	double	y;
-	// direction
-	double		dx;
-	double		dy;
+
+	// Angle de vue
+	double		pa;
+
+	// Direction
+	double		pdx;
+	double		pdy;
 } t_player;
 
 typedef struct s_game

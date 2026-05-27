@@ -1,5 +1,4 @@
 #include "header.h"
-#include <math.h>
 
 extern int	case_s;
 extern int	map_x;
@@ -30,29 +29,30 @@ void	draw_player(t_game *game)
 		for (int x = 0; x < 10; x++)
 		{
 			my_mlx_pixel_put(game->img,
-				player->x * case_s + (case_s / 2) - 5 + x,
-				player->y * case_s + (case_s / 2) - 5 + y,
+			player->x * case_s + (case_s / 2) - 5 + x,
+			player->y * case_s + (case_s / 2) - 5 + y,
 				BLUE);
 		}
 	}
 }
 
-void	draw_rays(t_game *game)
+void	draw_dir(t_game *game)
 {
 	t_player *player = game->player;
 
 	// position du joueur sur l'ecran
 	int py = player->y * case_s + (case_s / 2);
 	int px = player->x * case_s + (case_s / 2);
+	double x = px;
+	double y = py;
 
 	for (int i = 0; i < 100; i++)
 	{
-		int y = py + player->dy * i;
-		int x = px + player->dx * i;
+		x += player->pdx;
+		y += player->pdy;
 
 		my_mlx_pixel_put(game->img, x, y, RED);
 	}
-
 }
 
 void	draw_map(t_game *game)
@@ -75,7 +75,10 @@ void	draw_map(t_game *game)
 				dx = 0;
 				while (dx < case_s)
 				{
-					my_mlx_pixel_put(game->img, x * case_s + dx, y * case_s + dy, color);
+					if (case_s - 1 == dx || case_s - 1 == dy)
+						my_mlx_pixel_put(game->img, x * case_s + dx, y * case_s + dy, GRAY);
+					else
+						my_mlx_pixel_put(game->img, x * case_s + dx, y * case_s + dy, color);
 					dx++;
 				}
 				dy++;
@@ -88,7 +91,7 @@ void	draw_game(t_game *game)
 {
 	draw_map(game);
 	draw_player(game);
-	draw_rays(game);
+	draw_dir(game);
 	mlx_put_image_to_window(game->mlx, game->win, game->img->img, 0, 0);
 }
 
