@@ -34,7 +34,7 @@ int	main(void)
 	player.y = 4.0;
 
 	// Init l'angle a 0
-	player.pa = -PI/2;
+	player.pa = -0.52;
 
 	player.pdx = cos(player.pa);
 	player.pdy = sin(player.pa);

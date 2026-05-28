@@ -25,15 +25,11 @@ int	handle_keypress(int keycode, t_game *game)
 	{
 		player->y += player->pdy * 0.2;
 		player->x += player->pdx * 0.2;
-		printf("x: %f\n", player->pdx);
-		printf("y: %f\n", player->pdy);
 	}
 	else if (keycode == KEY_DOWN)
 	{
 		player->y -= player->pdy * 0.2;
 		player->x -= player->pdx * 0.2;
-		printf("x: %f\n", player->pdx);
-		printf("y: %f\n", player->pdy);
 	}
 
 	if (keycode == KEY_LEFT)
@@ -53,6 +49,9 @@ int	handle_keypress(int keycode, t_game *game)
 		player->pdx = cos(player->pa); 
 		player->pdy = sin(player->pa);
 	}
+
+	printf("deltaDistX: %f\n", fabs(1 / player->pdx));
+	printf("deltaDistY: %f\n", fabs(1 / player->pdy));
 
 	draw_game(game);
 	return (0);
